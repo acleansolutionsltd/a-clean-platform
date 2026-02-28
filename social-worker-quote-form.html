@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Worker Quote Request | A-Clean Cleaning Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #E8E2D5;
+            --dark: #1a1a1a;
+            --gold: #D4AF37;
+            --soft-white: #F8F6F0;
+            --accent-yellow: #F4E04D;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --success-green: #4CAF50;
+            --error-red: #F44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+            padding: 2rem 5%;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--soft-white);
+            letter-spacing: 0.3rem;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .back-link {
+            color: var(--soft-white);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 0.05rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Security Badge */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--dark);
+            color: var(--soft-white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .security-badge::before {
+            content: '🔒';
+            font-size: 1.2rem;
+        }
+
+        /* Quote Form */
+        .quote-form-container {
+            background: white;
+            padding: 3rem;
+            box-shadow: 0 10px 40px var(--shadow);
+            border-top: 4px solid var(--gold);
+        }
+
+        .form-section {
+            margin-bottom: 3rem;
+        }
+
+        .form-section:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .section-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: var(--dark);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .required {
+            color: var(--error-red);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            background: var(--soft-white);
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+
+        /* Checkboxes */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-top: 0.2rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--gold);
+        }
+
+        .checkbox-item label {
+            font-weight: 400;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        /* Image Upload Section */
+        .upload-container {
+            border: 2px dashed #e0e0e0;
+            padding: 2rem;
+            background: var(--soft-white);
+            transition: all 0.3s ease;
+        }
+
+        .upload-container:hover {
+            border-color: var(--gold);
+            background: white;
+        }
+
+        .upload-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--dark);
+            color: var(--soft-white);
+            border: 2px solid var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+
+        .upload-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid var(--gold);
+        }
+
+        .upload-info p {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .upload-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .upload-info li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.4rem;
+            position: relative;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .upload-info li::before {
+            content: '•';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .image-preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border: 2px solid #e0e0e0;
+            overflow: hidden;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .image-preview-item:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--error-red);
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .image-remove:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .image-filename {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.4rem;
+            font-size: 0.75rem;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .upload-progress {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            margin-top: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            background: var(--gold);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .upload-status {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .upload-status.info {
+            background: rgba(33, 150, 243, 0.1);
+            color: #1976D2;
+            border: 1px solid #1976D2;
+        }
+
+        .upload-status.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success-green);
+            border: 1px solid var(--success-green);
+        }
+
+        .upload-status.error {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error-red);
+            border: 1px solid var(--error-red);
+        }
+
+        /* Service Options */
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: var(--soft-white);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-option:hover {
+            border-color: var(--gold);
+            background: white;
+        }
+
+        .service-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--gold);
+        }
+
+        .service-option.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* GDPR Section */
+        .gdpr-section {
+            background: rgba(212, 175, 55, 0.05);
+            padding: 2rem;
+            border-left: 4px solid var(--gold);
+            margin-bottom: 2rem;
+        }
+
+        .gdpr-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gdpr-title::before {
+            content: '🔐';
+        }
+
+        .gdpr-text {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .gdpr-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        .gdpr-list li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .gdpr-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            width: 100%;
+            padding: 1.3rem;
+            background: var(--dark);
+            color: var(--soft-white);
+            border: 2px solid var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .submit-button:hover::before {
+            left: 0;
+        }
+
+        .submit-button:hover {
+            color: var(--dark);
+            border-color: var(--gold);
+        }
+
+        .submit-button:disabled {
+            background: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .submit-button:disabled:hover {
+            color: var(--soft-white);
+        }
+
+        /* Messages */
+        .form-message {
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success-green);
+            border: 2px solid var(--success-green);
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--error-red);
+            border: 2px solid var(--error-red);
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--soft-white);
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .quote-form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="a-clean-website.html" class="logo">A<span>-</span>CLEAN</a>
+            <a href="a-clean-website.html" class="back-link">
+                ← Back to Home
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Social Worker Quote Request</h1>
+            <div class="security-badge">Secure & GDPR Compliant</div>
+            <p class="page-subtitle">
+                This secure form is designed specifically for social workers and care professionals to request quotes for cleaning services on behalf of their clients. All information is handled in accordance with GDPR and UK data protection regulations.
+            </p>
+        </div>
+
+        <div class="quote-form-container">
+            <div id="formMessage" class="form-message"></div>
+
+            <form id="quoteForm">
+                <!-- Social Worker Details -->
+                <div class="form-section">
+                    <h2 class="section-title">Your Professional Details</h2>
+                    <p class="section-description">Information about you as the referring professional</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="swName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="swName" name="swName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="swEmail">Email Address <span class="required">*</span></label>
+                            <input type="email" id="swEmail" name="swEmail" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="swPhone">Contact Phone <span class="required">*</span></label>
+                            <input type="tel" id="swPhone" name="swPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="swOrganisation">Organisation/Council <span class="required">*</span></label>
+                            <input type="text" id="swOrganisation" name="swOrganisation" required placeholder="e.g., Camden Council">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="swDepartment">Department</label>
+                            <input type="text" id="swDepartment" name="swDepartment" placeholder="e.g., Adult Social Care">
+                        </div>
+                        <div class="form-group">
+                            <label for="caseReference">Case Reference Number</label>
+                            <input type="text" id="caseReference" name="caseReference" placeholder="Optional internal reference">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Details -->
+                <div class="form-section">
+                    <h2 class="section-title">Client Information</h2>
+                    <p class="section-description">Details about the person requiring cleaning services (anonymised where appropriate)</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientName">Client Name/Initials <span class="required">*</span></label>
+                            <input type="text" id="clientName" name="clientName" required placeholder="Full name or initials for safeguarding">
+                            <span class="help-text">Use initials if safeguarding concerns exist</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientPhone">Client Contact Number</label>
+                            <input type="tel" id="clientPhone" name="clientPhone" placeholder="If appropriate to share">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="propertyAddress">Property Address <span class="required">*</span></label>
+                        <textarea id="propertyAddress" name="propertyAddress" rows="3" required placeholder="Full address including postcode"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyType">Property Type <span class="required">*</span></label>
+                            <select id="propertyType" name="propertyType" required>
+                                <option value="">Select property type</option>
+                                <option value="flat">Flat/Apartment</option>
+                                <option value="house">House</option>
+                                <option value="bungalow">Bungalow</option>
+                                <option value="sheltered">Sheltered Accommodation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="propertySize">Number of Bedrooms <span class="required">*</span></label>
+                            <select id="propertySize" name="propertySize" required>
+                                <option value="">Select size</option>
+                                <option value="studio">Studio</option>
+                                <option value="1">1 Bedroom</option>
+                                <option value="2">2 Bedrooms</option>
+                                <option value="3">3 Bedrooms</option>
+                                <option value="4">4 Bedrooms</option>
+                                <option value="5+">5+ Bedrooms</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Requirements -->
+                <div class="form-section">
+                    <h2 class="section-title">Service Requirements</h2>
+                    <p class="section-description">Select all services needed for this case</p>
+                    
+                    <div class="service-options">
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="deep-clean">
+                            <span>Deep Clean</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="end-tenancy">
+                            <span>End of Tenancy</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="hoarding">
+                            <span>Hoarding Support</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="waste-disposal">
+                            <span>Waste Disposal</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="biohazard">
+                            <span>Biohazard Cleaning</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="ongoing">
+                            <span>Ongoing Support</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="urgency">Urgency Level <span class="required">*</span></label>
+                        <select id="urgency" name="urgency" required>
+                            <option value="">Select urgency</option>
+                            <option value="emergency">Emergency (within 24-48 hours)</option>
+                            <option value="urgent">Urgent (within 1 week)</option>
+                            <option value="standard">Standard (within 2 weeks)</option>
+                            <option value="flexible">Flexible (timing not critical)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="preferredDate">Preferred Date/Timeframe</label>
+                        <input type="date" id="preferredDate" name="preferredDate">
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                    <h2 class="section-title">Case Context & Special Requirements</h2>
+                    <p class="section-description">Information to help us provide the most appropriate service</p>
+                    
+                    <div class="form-group full-width">
+                        <label for="propertyCondition">Current Property Condition <span class="required">*</span></label>
+                        <textarea id="propertyCondition" name="propertyCondition" rows="4" required placeholder="Please describe the current state of the property, level of cleaning required, and any specific challenges"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="specialRequirements">Special Requirements or Considerations</label>
+                        <textarea id="specialRequirements" name="specialRequirements" rows="4" placeholder="E.g., safeguarding concerns, access issues, health conditions, pets, specific sensitivities, mental health considerations"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="accessArrangements">Access Arrangements</label>
+                        <textarea id="accessArrangements" name="accessArrangements" rows="3" placeholder="How will our team access the property? (e.g., key safe, you will be present, client will be home)"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="propertyImages">Property Condition Images</label>
+                        <div class="upload-container">
+                            <input type="file" id="propertyImages" name="propertyImages" accept="image/*" multiple style="display: none;">
+                            <button type="button" class="upload-button" onclick="document.getElementById('propertyImages').click()">
+                                📷 SELECT IMAGES TO UPLOAD
+                            </button>
+                            <div class="upload-info">
+                                <p>Upload photos to help us understand the scope of work required</p>
+                                <ul>
+                                    <li>Maximum 10 images</li>
+                                    <li>Accepted formats: JPG, PNG, HEIC</li>
+                                    <li>Maximum 5MB per image</li>
+                                    <li>Images are encrypted during transmission and storage</li>
+                                </ul>
+                            </div>
+                            <div id="imagePreview" class="image-preview"></div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="safeguarding" name="safeguarding">
+                            <label for="safeguarding">This case involves safeguarding concerns that our team should be aware of</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="vulnerableAdult" name="vulnerableAdult">
+                            <label for="vulnerableAdult">The client is a vulnerable adult</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dbs" name="dbs">
+                            <label for="dbs">DBS-checked staff required</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="imageConsent" name="imageConsent">
+                            <label for="imageConsent">I confirm that images uploaded do not contain identifiable client information or have appropriate consent</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Budget & Funding -->
+                <div class="form-section">
+                    <h2 class="section-title">Budget & Funding Information</h2>
+                    <p class="section-description">Help us provide appropriate pricing options</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fundingSource">Funding Source <span class="required">*</span></label>
+                            <select id="fundingSource" name="fundingSource" required>
+                                <option value="">Select funding source</option>
+                                <option value="council">Council/Local Authority</option>
+                                <option value="nhs">NHS/Health Trust</option>
+                                <option value="charity">Charity/Third Sector</option>
+                                <option value="private">Private/Client Funded</option>
+                                <option value="mixed">Mixed Funding</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budgetRange">Approximate Budget Range</label>
+                            <select id="budgetRange" name="budgetRange">
+                                <option value="">Select if known</option>
+                                <option value="under-500">Under £500</option>
+                                <option value="500-1000">£500 - £1,000</option>
+                                <option value="1000-2000">£1,000 - £2,000</option>
+                                <option value="2000-5000">£2,000 - £5,000</option>
+                                <option value="5000+">£5,000+</option>
+                                <option value="flexible">Flexible/TBC</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="purchaseOrder">Purchase Order/Invoice Requirements</label>
+                        <textarea id="purchaseOrder" name="purchaseOrder" rows="2" placeholder="Any specific invoicing or purchase order requirements"></textarea>
+                    </div>
+                </div>
+
+                <!-- GDPR Consent -->
+                <div class="gdpr-section">
+                    <h3 class="gdpr-title">Data Protection & Privacy</h3>
+                    <p class="gdpr-text">
+                        A-Clean Cleaning Solutions is committed to protecting your data and your client's data in accordance with UK GDPR and the Data Protection Act 2018.
+                    </p>
+                    <ul class="gdpr-list">
+                        <li>All data is transmitted securely using SSL/TLS encryption</li>
+                        <li>Personal information is stored securely and accessed only by authorized personnel</li>
+                        <li>Data is retained only as long as necessary for service provision and legal obligations</li>
+                        <li>We will not share data with third parties without consent unless legally required</li>
+                        <li>You have the right to request access, correction, or deletion of data</li>
+                        <li>We maintain appropriate safeguarding policies for vulnerable clients</li>
+                    </ul>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="gdprConsent" name="gdprConsent" required>
+                            <label for="gdprConsent">
+                                <strong>I confirm that:</strong> I have the authority to share this information on behalf of my organisation and the client, and I have read and understood A-Clean's data protection practices. <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="clientConsent" name="clientConsent">
+                            <label for="clientConsent">
+                                The client has been informed about this referral and has given consent (where capacity allows)
+                            </label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="updateConsent" name="updateConsent">
+                            <label for="updateConsent">
+                                I consent to receiving updates about this quote request via email and phone
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button" id="submitBtn">
+                    SUBMIT SECURE QUOTE REQUEST
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 A-Clean Cleaning Solutions. All rights reserved. | GDPR Compliant | ICO Registration: [Pending]</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+            For data protection enquiries: <a href="/cdn-cgi/l/email-protection#583c283718393b343d39362b37342d2c3137362b763b37762d33" style="color: var(--gold);"><span class="__cf_email__" data-cfemail="cda9bda28dacaea1a8aca3bea2a1b8b9a4a2a3bee3aea2e3b8a6">[email&#160;protected]</span></a>
+        </p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // ============================================
+        // IMAGE UPLOAD FUNCTIONALITY
+        // ============================================
+        let uploadedFiles = [];
+        const MAX_FILES = 10;
+        const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+        const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/heic', 'image/heif'];
+
+        const fileInput = document.getElementById('propertyImages');
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', handleFileSelect);
+        }
+
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files);
+            
+            // Check total file count
+            if (uploadedFiles.length + files.length > MAX_FILES) {
+                showUploadStatus(`You can only upload a maximum of ${MAX_FILES} images.`, 'error');
+                return;
+            }
+
+            // Validate and process each file
+            files.forEach(file => {
+                // Check file type
+                if (!ALLOWED_TYPES.includes(file.type.toLowerCase())) {
+                    showUploadStatus(`${file.name}: Invalid file type. Only JPG, PNG, and HEIC images are allowed.`, 'error');
+                    return;
+                }
+
+                // Check file size
+                if (file.size > MAX_FILE_SIZE) {
+                    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    showUploadStatus(`${file.name}: File too large (${sizeMB}MB). Maximum size is 5MB.`, 'error');
+                    return;
+                }
+
+                // Add to uploaded files
+                uploadedFiles.push(file);
+                displayImagePreview(file);
+            });
+
+            // Clear input to allow re-selection of same file
+            fileInput.value = '';
+
+            // Show success message
+            if (files.length > 0) {
+                showUploadStatus(`${files.length} image(s) added successfully. Total: ${uploadedFiles.length}/${MAX_FILES}`, 'success');
+            }
+        }
+
+        function displayImagePreview(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'image-preview-item';
+                previewItem.dataset.filename = file.name;
+                
+                const safeFilename = escapeHtml(file.name);
+                previewItem.innerHTML = `
+                    <img src="${e.target.result}" alt="${safeFilename}">
+                    <button type="button" class="image-remove" onclick="removeImage('${safeFilename}')" title="Remove image">×</button>
+                    <div class="image-filename">${safeFilename}</div>
+                `;
+                
+                imagePreview.appendChild(previewItem);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage(filename) {
+            // Remove from uploadedFiles array
+            uploadedFiles = uploadedFiles.filter(file => file.name !== filename);
+            
+            // Remove from preview
+            const previewItem = imagePreview.querySelector(`[data-filename="${filename}"]`);
+            if (previewItem) {
+                previewItem.remove();
+            }
+
+            showUploadStatus(`Image removed. Total: ${uploadedFiles.length}/${MAX_FILES}`, 'info');
+        }
+
+        function showUploadStatus(message, type) {
+            // Remove existing status
+            const existingStatus = document.querySelector('.upload-status');
+            if (existingStatus) {
+                existingStatus.remove();
+            }
+
+            // Create new status message
+            const status = document.createElement('div');
+            status.className = `upload-status ${type}`;
+            status.textContent = message;
+            
+            const uploadContainer = document.querySelector('.upload-container');
+            if (uploadContainer) {
+                uploadContainer.appendChild(status);
+                status.style.display = 'block';
+
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Convert images to base64 for form submission
+        async function prepareImagesForSubmission() {
+            const imageData = [];
+            
+            for (const file of uploadedFiles) {
+                try {
+                    const base64 = await fileToBase64(file);
+                    imageData.push({
+                        filename: file.name,
+                        size: file.size,
+                        type: file.type,
+                        lastModified: file.lastModified,
+                        data: base64
+                    });
+                } catch (error) {
+                    console.error(`Error processing ${file.name}:`, error);
+                }
+            }
+            
+            return imageData;
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ============================================
+        // SERVICE SELECTION
+        // ============================================
+        // Service option selection styling
+        document.querySelectorAll('.service-option').forEach(option => {
+            const checkbox = option.querySelector('input[type="checkbox"]');
+            
+            option.addEventListener('click', function(e) {
+                if (e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+                
+                if (checkbox.checked) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        });
+
+        // Form validation and submission
+        document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formMessage = document.getElementById('formMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Check if at least one service is selected
+            const servicesChecked = document.querySelectorAll('input[name="services"]:checked');
+            if (servicesChecked.length === 0) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'Please select at least one service required.';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            // Check GDPR consent
+            const gdprConsent = document.getElementById('gdprConsent');
+            if (!gdprConsent.checked) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'You must confirm data protection consent to proceed.';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            // Check image consent if images are uploaded
+            const imageConsent = document.getElementById('imageConsent');
+            if (uploadedFiles.length > 0 && !imageConsent.checked) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'Please confirm that uploaded images do not contain identifiable client information or that you have appropriate consent.';
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span> Processing images and submitting...';
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            
+            // Process regular fields
+            for (let [key, value] of formData.entries()) {
+                if (key === 'services') {
+                    if (!data.services) data.services = [];
+                    data.services.push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Process images
+            if (uploadedFiles.length > 0) {
+                formMessage.className = 'form-message info';
+                formMessage.textContent = `Processing ${uploadedFiles.length} image(s)...`;
+                formMessage.style.display = 'block';
+                
+                try {
+                    const images = await prepareImagesForSubmission();
+                    data.propertyImages = images;
+                    data.imageCount = images.length;
+                } catch (error) {
+                    formMessage.className = 'form-message error';
+                    formMessage.textContent = 'Error processing images. Please try again.';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'SUBMIT SECURE QUOTE REQUEST';
+                    return;
+                }
+            }
+
+            // Add metadata
+            data.submissionTime = new Date().toISOString();
+            data.formType = 'social-worker-quote-request';
+            data.ipAddress = '[REDACTED FOR GDPR]'; // In production, this would be handled server-side
+
+            // Simulate secure submission (in production, this would POST to secure backend)
+            console.log('SECURE FORM SUBMISSION:', {
+                ...data,
+                propertyImages: data.propertyImages ? `${data.propertyImages.length} images (base64 data omitted from log)` : 'none'
+            });
+            
+            // In a real implementation, you would send this to your backend:
+            /*
+            fetch('https://your-secure-api.com/api/quote-requests', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': 'your-csrf-token'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Handle success
+            })
+            .catch(error => {
+                // Handle error
+            });
+            */
+
+            // Simulate processing delay
+            setTimeout(() => {
+                // Generate reference number
+                const referenceNumber = 'ACL-SW-' + Date.now().toString().slice(-8);
+                
+                const imageText = uploadedFiles.length > 0 ? `<br>${uploadedFiles.length} image(s) uploaded successfully.` : '';
+                
+                // Show success message
+                formMessage.className = 'form-message success';
+                formMessage.innerHTML = `
+                    <strong>✓ Quote Request Submitted Successfully</strong><br>
+                    Reference Number: <strong>${referenceNumber}</strong>${imageText}<br>
+                    We will contact you within 24 hours. A confirmation email has been sent to ${data.swEmail}.
+                `;
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Reset form and images
+                this.reset();
+                document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+                uploadedFiles = [];
+                imagePreview.innerHTML = '';
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'SUBMIT SECURE QUOTE REQUEST';
+
+                // Send confirmation email (in production)
+                sendConfirmationEmail(data.swEmail, referenceNumber);
+            }, 2000);
+        });
+
+        // Email confirmation function (placeholder)
+        function sendConfirmationEmail(email, referenceNumber) {
+            console.log(`Sending confirmation email to ${email} with reference ${referenceNumber}`);
+            // In production, this would trigger a server-side email
+        }
+
+        // Auto-save draft functionality (localStorage for convenience)
+        // Note: In production with sensitive data, you'd want server-side draft saving
+        const formInputs = document.querySelectorAll('input, select, textarea');
+        let saveTimeout;
+
+        formInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(() => {
+                    // For demo purposes only - don't use localStorage for sensitive data in production
+                    console.log('Auto-saving draft... (disabled for security in production)');
+                }, 2000);
+            });
+        });
+
+     

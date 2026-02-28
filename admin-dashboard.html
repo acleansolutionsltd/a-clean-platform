@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | A-Clean Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #E8E2D5;
+            --dark: #1a1a1a;
+            --gold: #D4AF37;
+            --soft-white: #F8F6F0;
+            --accent-yellow: #F4E04D;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --success-green: #4CAF50;
+            --error-red: #F44336;
+            --info-blue: #2196F3;
+            --warning-orange: #FF9800;
+            --purple: #9C27B0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            color: var(--dark);
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--soft-white);
+            letter-spacing: 0.2rem;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .admin-title {
+            color: var(--soft-white);
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--soft-white);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Sidebar */
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 10px var(--shadow);
+            padding: 2rem 0;
+        }
+
+        .nav-item {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #666;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--cream);
+            color: var(--dark);
+        }
+
+        .nav-item.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            border-left-color: var(--gold);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--error-red);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+            border-left: 4px solid var(--gold);
+        }
+
+        .stat-card.pending {
+            border-left-color: var(--warning-orange);
+        }
+
+        .stat-card.approved {
+            border-left-color: var(--success-green);
+        }
+
+        .stat-card.rejected {
+            border-left-color: var(--error-red);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            float: right;
+            opacity: 0.2;
+        }
+
+        /* Filters */
+        .filters-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .filter-label {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .filter-select, .filter-input {
+            padding: 0.6rem 1rem;
+            border: 2px solid #e0e0e0;
+            background: var(--soft-white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--dark);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            align-self: flex-end;
+        }
+
+        .filter-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Applications List */
+        .applications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .application-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .application-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .application-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .application-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .provider-type-badge {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .application-id {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--warning-orange);
+        }
+
+        .status-badge.approved {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success-green);
+        }
+
+        .status-badge.rejected {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--error-red);
+        }
+
+        .status-badge.under-review {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--info-blue);
+        }
+
+        .application-body {
+            padding: 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .info-value.highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Services & Coverage */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: var(--cream);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+
+        .tag.service {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+        }
+
+        .tag.borough {
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid var(--info-blue);
+        }
+
+        /* DBS & Documents */
+        .verification-section {
+            background: var(--soft-white);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .document-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .document-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .document-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.4rem 1rem;
+            background: var(--info-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background: #1976D2;
+        }
+
+        /* References */
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .reference-card {
+            background: white;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .reference-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .reference-detail {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+
+        .verify-ref-btn {
+            margin-top: 0.8rem;
+            padding: 0.4rem 1rem;
+            background: var(--success-green);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .verify-ref-btn:hover {
+            background: #388E3C;
+        }
+
+        /* Action Buttons */
+        .actions-bar {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--soft-white);
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .approve-btn {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background: #388E3C;
+        }
+
+        .reject-btn {
+            background: var(--error-red);
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #d32f2f;
+        }
+
+        .info-btn {
+            background: var(--info-blue);
+            color: white;
+        }
+
+        .info-btn:hover {
+            background: #1976D2;
+        }
+
+        .notes-btn {
+            background: var(--warning-orange);
+            color: white;
+        }
+
+        .notes-btn:hover {
+            background: #F57C00;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.primary {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .modal-btn.primary:hover {
+            background: #c4a037;
+        }
+
+        .modal-btn.secondary {
+            background: #e0e0e0;
+            color: var(--dark);
+        }
+
+        .modal-btn.secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .modal-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+        }
+
+        .modal-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* Timeline */
+        .timeline {
+            margin-top: 1.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e0e0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.3rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        .timeline-date {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-content {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert.success {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--success-green);
+            color: var(--success-green);
+        }
+
+        .alert.error {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid var(--error-red);
+            color: var(--error-red);
+        }
+
+        .alert.info {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--info-blue);
+            color: var(--info-blue);
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .sidebar {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-btn {
+                align-self: stretch;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div>
+            <div class="logo">A<span>-</span>CLEAN</div>
+            <div class="admin-title">ADMIN DASHBOARD</div>
+        </div>
+        <div class="user-info">
+            <div class="user-avatar">RA</div>
+            <span>Rich Admin</span>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="nav-item active">
+                <span class="nav-icon">📋</span>
+                <span>Provider Applications</span>
+                <span class="nav-badge">8</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">✅</span>
+                <span>Approved Providers</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📝</span>
+                <span>Quote Requests</span>
+                <span class="nav-badge">3</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">💼</span>
+                <span>Active Jobs</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span>Analytics</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="alert" id="alertMessage"></div>
+
+            <div class="page-header">
+                <h1 class="page-title">Provider Applications</h1>
+                <p class="page-subtitle">Review and manage cleaning provider registration applications</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card pending">
+                    <span class="stat-icon">⏳</span>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Pending Review</div>
+                </div>
+                <div class="stat-card approved">
+                    <span class="stat-icon">✓</span>
+                    <div class="stat-value">23</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+                <div class="stat-card rejected">
+                    <span class="stat-icon">✕</span>
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Rejected</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📅</span>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label class="filter-label">Status</label>
+                    <select class="filter-select" id="filterStatus">
+                        <option value="all">All Applications</option>
+                        <option value="pending" selected>Pending Review</option>
+                        <option value="under-review">Under Review</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Provider Type</label>
+                    <select class="filter-select" id="filterType">
+                        <option value="all">All Types</option>
+                        <option value="company">Companies</option>
+                        <option value="duo">Duos/Teams</option>
+                        <option value="individual">Individuals</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Borough</label>
+                    <select class="filter-select" id="filterBorough">
+                        <option value="all">All Boroughs</option>
+                        <option value="camden">Camden</option>
+                        <option value="islington">Islington</option>
+                        <option value="hackney">Hackney</option>
+                        <option value="westminster">Westminster</option>
+                        <!-- Add more boroughs as needed -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Search</label>
+                    <input type="text" class="filter-input" id="filterSearch" placeholder="Search name, email, ID...">
+                </div>
+                <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+            </div>
+
+            <!-- Applications List -->
+            <div class="applications-list" id="applicationsList">
+                <!-- Application cards will be dynamically inserted here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Approve Modal -->
+    <div class="modal" id="approveModal">
+        <div class="modal-content">
+            <h2 class="modal-header">Approve Provider</h2>
+            <div class="modal-body">
+                <p>You are about to approve <strong id="approveProviderName"></strong>.</p>
+                <p style="margin-top: 1rem;">They will receive an email with:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.8;">
+                    <li>Login credentials for the provider portal</li>
+                    <li>Platform guidelines and commission structure</li>
+                    <li>Instructions on how to receive job notifications</li>
+                </ul>
+                <div style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Approval Notes (optional):</label>
+                    <textarea class="modal-textarea" id="approvalNotes" placeholder="Add any notes for internal record..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closeModal('approveModal')">Cancel</button>
+                <button class="modal-btn primary" onclick="confirmApproval()">Confirm Approval</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal" id="rejectModal">
+        <div class="modal-content">
+            <h2 class="modal-header">Reject Application</h2>
+            <div class="modal-body">
+                <p>You are about to reject <strong id="rejectProviderName"></strong>'s application.</p>
+                <div style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Reason for Rejection <span style="color: #F44336;">*</span>:</label>
+                    <select class="filter-select" id="rejectionReason" style="width: 100%; margin-bottom: 1rem;">
+                        <option value="">Select a reason...</option>
+                        <option value="incomplete-dbs">Incomplete or Invalid DBS Certificate</option>
+                        <option value="insufficient-insurance">Insufficient Insurance Coverage</option>
+                        <option value="failed-references">References Did Not Check Out</option>
+                        <option value="limited-experience">Insufficient Experience</option>
+                        <option value="coverage-area">Limited Coverage Area</option>
+                        <option value="other">Other (specify below)</option>
+                    </select>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Additional Details:</label>
+                    <textarea class="modal-textarea" id="rejectionNotes" placeholder="Provide specific feedback for the applicant..."></textarea>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">This message will be included in the rejection email.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closeModal('rejectModal')">Cancel</button>
+                <button class="modal-btn primary" style="background: var(--error-red);" onclick="confirmRejection()">Confirm Rejection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Info Modal -->
+    <div class="modal" id="requestInfoModal">
+        <div class="modal-content">
+            <h2 class="modal-header">Request Additional Information</h2>
+            <div class="modal-body">
+                <p>Request more information from <strong id="requestInfoProviderName"></strong>.</p>
+                <div style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">What information do you need? <span style="color: #F44336;">*</span>:</label>
+                    <textarea class="modal-textarea" id="infoRequest" placeholder="E.g., 'Please provide a clearer copy of your DBS certificate showing the issue date' or 'We need additional references from previous commercial clients'"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closeModal('requestInfoModal')">Cancel</button>
+                <button class="modal-btn primary" onclick="confirmRequestInfo()">Send Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Notes Modal -->
+    <div class="modal" id="notesModal">
+        <div class="modal-content">
+            <h2 class="modal-header">Admin Notes</h2>
+            <div class="modal-body">
+                <p>Internal notes for <strong id="notesProviderName"></strong>. These are not visible to the applicant.</p>
+                <div style="margin-top: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Notes:</label>
+                    <textarea class="modal-textarea" id="adminNotes" placeholder="Add internal notes, verification status, follow-up reminders..."></textarea>
+                </div>
+                <div class="timeline" id="notesTimeline">
+                    <h3 style="margin-bottom: 1rem; font-size: 1rem;">Previous Notes:</h3>
+                    <!-- Timeline items will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closeModal('notesModal')">Cancel</button>
+                <button class="modal-btn primary" onclick="saveNotes()">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in production, this would come from your database
+        const applications = [
+            {
+                id: 'ACP-12345678',
+                providerType: 'company',
+                businessName: 'Sparkle Clean Solutions Ltd',
+                fullName: 'Sarah Thompson',
+                email: 'sarah@sparkleclean.co.uk',
+                phone: '07891 234567',
+                whatsapp: '07891 234567',
+                yearsExperience: '5-10',
+                teamSize: 12,
+                dbsStaff: 12,
+                dbsNumber: '001234567890',
+                dbsIssueDate: '2023-06-15',
+                dbsUpdateService: true,
+                companyNumber: '12345678',
+                vatNumber: 'GB123456789',
+                publicLiability: true,
+                employersLiability: true,
+                services: ['domestic-cleaning', 'commercial-cleaning', 'deep-cleaning', 'end-of-tenancy', 'hoarding-support'],
+                boroughs: ['camden', 'islington', 'hackney', 'tower-hamlets', 'westminster'],
+                availability: 'immediate',
+                responseTime: 'within-1-hour',
+                daysAvailable: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+                emergencyJobs: true,
+                status: 'pending',
+                submittedDate: '2026-02-20T10:30:00',
+                references: [
+                    { name: 'John Davis', relationship: 'Camden Council - Social Care Manager', phone: '020 7974 4444', email: 'j.davis@camden.gov.uk' },
+                    { name: 'Maria Rodriguez', relationship: 'Previous Client - Property Manager', phone: '07700 900123', email: 'maria@propertymanage.com' }
+                ],
+                documents: {
+                    dbs: ['dbs-certificate-main.pdf', 'dbs-team-member-2.pdf'],
+                    insurance: ['public-liability-2026.pdf', 'employers-liability-2026.pdf'],
+                    additional: ['coshh-certificate.pdf', 'health-safety-cert.pdf']
+                },
+                aboutYou: 'Established in 2015, Sparkle Clean Solutions specializes in working with vulnerable adults and social care settings. All our team members are DBS checked and have undergone safeguarding training. We have extensive experience with hoarding cases and work closely with mental health professionals.',
+                website: 'https://sparkleclean.co.uk'
+            },
+            {
+                id: 'ACP-23456789',
+                providerType: 'duo',
+                businessName: 'Two Sisters Cleaning',
+                fullName: 'Emma & Sophie Williams',
+                email: 'twosisterscleaning@gmail.com',
+                phone: '07812 345678',
+                whatsapp: '07812 345678',
+                yearsExperience: '3-5',
+                teamSize: 2,
+                dbsStaff: 2,
+                dbsNumber: '002345678901',
+                dbsIssueDate: '2024-01-10',
+                dbsUpdateService: false,
+                publicLiability: true,
+                employersLiability: false,
+                services: ['domestic-cleaning', 'deep-cleaning', 'end-of-tenancy', 'regular-maintenance'],
+                boroughs: ['bromley', 'lewisham', 'greenwich', 'bexley'],
+                availability: 'within-1-week',
+                responseTime: 'within-4-hours',
+                daysAvailable: ['tuesday', 'wednesday', 'thursday', 'friday'],
+                emergencyJobs: false,
+                status: 'pending',
+                submittedDate: '2026-02-22T14:15:00',
+                references: [
+                    { name: 'Linda Chen', relationship: 'Regular client for 2 years', phone: '07900 123456', email: 'linda.chen@email.com' },
+                    { name: 'Robert Brown', relationship: 'Letting agent', phone: '020 8123 4567', email: 'rbrown@lettings.co.uk' }
+                ],
+                documents: {
+                    dbs: ['emma-dbs.pdf', 'sophie-dbs.pdf'],
+                    insurance: ['public-liability.pdf'],
+                    additional: []
+                },
+                aboutYou: 'We are sisters who have been cleaning professionally for over 3 years. We pride ourselves on attention to detail and building long-term relationships with our clients. We understand the importance of trust and discretion when working in people's homes.',
+                website: ''
+            },
+            {
+                id: 'ACP-34567890',
+                providerType: 'individual',
+                businessName: '',
+                fullName: 'Michael Johnson',
+                email: 'mjohnson.cleaning@outlook.com',
+                phone: '07723 456789',
+                whatsapp: '07723 456789',
+                yearsExperience: '10+',
+                teamSize: 1,
+                dbsStaff: 1,
+                dbsNumber: '003456789012',
+                dbsIssueDate: '2023-09-20',
+                dbsUpdateService: true,
+                publicLiability: true,
+                employersLiability: false,
+                services: ['domestic-cleaning', 'deep-cleaning', 'regular-maintenance', 'window-cleaning'],
+                boroughs: ['ealing', 'hounslow', 'brent', 'hammersmith-fulham'],
+                availability: 'within-2-weeks',
+                responseTime: 'within-24-hours',
+                daysAvailable: ['monday', 'wednesday', 'friday'],
+                emergencyJobs: false,
+                status: 'under-review',
+                submittedDate: '2026-02-18T09:45:00',
+                references: [
+                    { name: 'Patricia Green', relationship: 'Client for 5 years', phone: '020 8234 5678', email: 'pat.green@email.com' },
+                    { name: 'David Wilson', relationship: 'Property owner', phone: '07800 234567', email: 'dwilson@properties.com' }
+                ],
+                documents: {
+                    dbs: ['michael-johnson-dbs.pdf'],
+                    insurance: ['public-liability-insurance.pdf'],
+                    additional: ['first-aid-cert.pdf']
+                },
+                aboutYou: 'I have over 10 years experience in professional cleaning. I take pride in my work and treat every home as if it were my own. I am reliable, trustworthy, and always go the extra mile.',
+                website: ''
+            }
+        ];
+
+        let currentApplicationId = null;
+
+        // Initialize dashboard
+        function initDashboard() {
+            renderApplications(applications);
+        }
+
+        // Render applications
+        function renderApplications(apps) {
+            const container = document.getElementById('applicationsList');
+            container.innerHTML = '';
+
+            if (apps.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No applications found matching your filters.</p>';
+                return;
+            }
+
+            apps.forEach(app => {
+                const card = createApplicationCard(app);
+                container.appendChild(card);
+            });
+        }
+
+        // Create application card
+        function createApplicationCard(app) {
+            const card = document.createElement('div');
+            card.className = 'application-card';
+            
+            const providerTypeName = {
+                'company': 'Company',
+                'duo': 'Duo/Team',
+                'individual': 'Individual'
+            }[app.providerType];
+
+            const providerIcon = {
+                'company': '🏢',
+                'duo': '👥',
+                'individual': '👤'
+            }[app.providerType];
+
+            const submittedDate = new Date(app.submittedDate).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+
+            const servicesHtml = app.services.slice(0, 5).map(s => 
+                `<span class="tag service">${formatServiceName(s)}</span>`
+            ).join('');
+
+            const moreSevices = app.services.length > 5 ? `<span class="tag service">+${app.services.length - 5} more</span>` : '';
+
+            const boroughsHtml = app.boroughs.slice(0, 8).map(b => 
+                `<span class="tag borough">${formatBoroughName(b)}</span>`
+            ).join('');
+
+            const moreBoroughs = app.boroughs.length > 8 ? `<span class="tag borough">+${app.boroughs.length - 8} more</span>` : '';
+
+            card.innerHTML = `
+                <div class="application-header">
+                    <div>
+                        <div class="application-title">
+                            <span>${providerIcon}</span>
+                            ${app.businessName || app.fullName}
+                            <span class="provider-type-badge">${providerTypeName}</span>
+                        </div>
+                        <div class="application-id">ID: ${app.id}</div>
+                    </div>
+                    <div class="status-badge ${app.status}">${app.status.replace('-', ' ')}</div>
+                </div>
+
+                <div class="application-body">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Contact Person</div>
+                            <div class="info-value">${app.fullName}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Email</div>
+                            <div class="info-value">${app.email}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Phone</div>
+                            <div class="info-value">${app.phone}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Experience</div>
+                            <div class="info-value highlight">${app.yearsExperience} years</div>
+                        </div>
+                        ${app.providerType !== 'individual' ? `
+                        <div class="info-item">
+                            <div class="info-label">Team Size</div>
+                            <div class="info-value">${app.teamSize} cleaners</div>
+                        </div>
+                        ` : ''}
+                        <div class="info-item">
+                            <div class="info-label">DBS Checked Staff</div>
+                            <div class="info-value highlight">${app.dbsStaff}/${app.teamSize} ✓</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Availability</div>
+                            <div class="info-value">${formatAvailability(app.availability)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Response Time</div>
+                            <div class="info-value">${formatResponseTime(app.responseTime)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Emergency Jobs</div>
+                            <div class="info-value">${app.emergencyJobs ? '✓ Yes' : '✗ No'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Submitted</div>
+                            <div class="info-value">${submittedDate}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <div class="section-title" style="font-size: 0.95rem; margin-bottom: 0.8rem;">Services Offered (${app.services.length}):</div>
+                        <div class="tags-container">
+                            ${servicesHtml}
+                            ${moreSevices}
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <div class="section-title" style="font-size: 0.95rem; margin-bottom: 0.8rem;">Coverage Area (${app.boroughs.length} boroughs):</div>
+                        <div class="tags-container">
+                            ${boroughsHtml}
+                            ${moreBoroughs}
+                        </div>
+                    </div>
+
+                    <!-- DBS Verification -->
+                    <div class="verification-section">
+                        <div class="section-title">
+                            <span>🔐</span> DBS Verification
+                        </div>
+                        <div class="info-grid" style="margin-bottom: 1rem;">
+                            <div class="info-item">
+                                <div class="info-label">Certificate Number</div>
+                                <div class="info-value">${app.dbsNumber}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Issue Date</div>
+                                <div class="info-value">${new Date(app.dbsIssueDate).toLocaleDateString('en-GB')}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Update Service</div>
+                                <div class="info-value">${app.dbsUpdateService ? '✓ Subscribed' : '✗ Not subscribed'}</div>
+                            </div>
+                        </div>
+                        <div class="document-list">
+                            ${app.documents.dbs.map(doc => `
+                                <div class="document-item">
+                                    <div class="document-name">
+                                        <span>📄</span> ${doc}
+                                    </div>
+                                    <button class="view-btn" onclick="viewDocument('${doc}')">View</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Insurance -->
+                    <div class="verification-section">
+                        <div class="section-title">
+                            <span>🛡️</span> Insurance Documents
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <span style="color: var(--success-green); font-weight: 600;">✓ Public Liability Insurance</span><br>
+                            ${app.employersLiability ? '<span style="color: var(--success-green); font-weight: 600;">✓ Employers Liability Insurance</span>' : ''}
+                        </div>
+                        <div class="document-list">
+                            ${app.documents.insurance.map(doc => `
+                                <div class="document-item">
+                                    <div class="document-name">
+                                        <span>📋</span> ${doc}
+                                    </div>
+                                    <button class="view-btn" onclick="viewDocument('${doc}')">View</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    ${app.documents.additional.length > 0 ? `
+                    <!-- Additional Certifications -->
+                    <div class="verification-section">
+                        <div class="section-title">
+                            <span>⭐</span> Additional Certifications
+                        </div>
+                        <div class="document-list">
+                            ${app.documents.additional.map(doc => `
+                                <div class="document-item">
+                                    <div class="document-name">
+                                        <span>📜</span> ${doc}
+                                    </div>
+                                    <button class="view-btn" onclick="viewDocument('${doc}')">View</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- References -->
+                    <div class="verification-section">
+                        <div class="section-title">
+                            <span>✉️</span> Professional References
+                        </div>
+                        <div class="references-grid">
+                            ${app.references.map((ref, idx) => `
+                                <div class="reference-card">
+                                    <div class="reference-name">Reference ${idx + 1}: ${ref.name}</div>
+                                    <div class="reference-detail"><strong>Relationship:</strong> ${ref.relationship}</div>
+                                    <div class="reference-detail"><strong>Phone:</strong> ${ref.phone}</div>
+                                    ${ref.email ? `<div class="reference-detail"><strong>Email:</strong> ${ref.email}</div>` : ''}
+                                    <button class="verify-ref-btn" onclick="verifyReference('${app.id}', ${idx})">Contact Reference</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    ${app.aboutYou ? `
+                    <!-- About -->
+                    <div class="verification-section">
+                        <div class="section-title">
+                            <span>💬</span> About the Provider
+                        </div>
+                        <p style="line-height: 1.7; color: #333;">${app.aboutYou}</p>
+                    </div>
+                    ` : ''}
+                </div>
+
+                ${app.status === 'pending' || app.status === 'under-review' ? `
+                <div class="actions-bar">
+                    <button class="action-btn approve-btn" onclick="openApproveModal('${app.id}')">
+                        <span>✓</span> Approve Provider
+                    </button>
+                    <button class="action-btn reject-btn" onclick="openRejectModal('${app.id}')">
+                        <span>✗</span> Reject Application
+                    </button>
+                    <button class="action-btn info-btn" onclick="openRequestInfoModal('${app.id}')">
+                        <span>📧</span> Request More Info
+                    </button>
+                    <button class="action-btn notes-btn" onclick="openNotesModal('${app.id}')">
+                        <span>📝</span> Add Notes
+                    </button>
+                </div>
+                ` : ''}
+            `;
+
+            return card;
+        }
+
+        // Helper functions
+        function formatServiceName(service) {
+            return service.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+        }
+
+        function formatBoroughName(borough) {
+            return borough.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' & ');
+        }
+
+        function formatAvailability(avail) {
+            const map = {
+                'immediate': 'Immediate (24-48h)',
+                'within-1-week': 'Within 1 week',
+                'within-2-weeks': 'Within 2 weeks',
+                'within-1-month': 'Within 1 month',
+                'fully-booked': 'Fully booked'
+            };
+            return map[avail] || avail;
+        }
+
+        function formatResponseTime(time) {
+            const map = {
+                'within-1-hour': 'Within 1 hour',
+                'within-4-hours': 'Within 4 hours',
+                'within-24-hours': 'Within 24 hours',
+                'within-48-hours': 'Within 48 hours'
+            };
+            return map[time] || time;
+        }
+
+        // Modal functions
+        function openApproveModal(appId) {
+            currentApplicationId = appId;
+            const app = applications.find(a => a.id === appId);
+            document.getElementById('approveProviderName').textContent = app.businessName || app.fullName;
+            document.getElementById('approveModal').classList.add('active');
+        }
+
+        function openRejectModal(appId) {
+            currentApplicationId = appId;
+            const app = applications.find(a => a.id === appId);
+            document.getElementById('rejectProviderName').textContent = app.businessName || app.fullName;
+            document.getElementById('rejectModal').classList.add('active');
+        }
+
+        function openRequestInfoModal(appId) {
+            currentApplicationId = appId;
+            const app = applications.find(a => a.id === appId);
+            document.getElementById('requestInfoProviderName').textContent = app.businessName || app.fullName;
+            document.getElementById('requestInfoModal').classList.add('active');
+        }
+
+        function openNotesModal(appId) {
+            currentApplicationId = appId;
+            const app = applications.find(a => a.id === appId);
+            document.getElementById('notesProviderName').textContent = app.businessName || app.fullName;
+            
+            // Load previous notes (mock data)
+            const timeline = document.getElementById('notesTimeline');
+            timeline.innerHTML = `
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Previous Notes:</h3>
+                <div class="timeline-item">
+                    <div class="timeline-date">22 Feb 2026, 10:15 AM</div>
+                    <div class="timeline-content"><strong>Rich Admin:</strong> Contacted first reference - confirmed positive feedback.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">21 Feb 2026, 2:30 PM</div>
+                    <div class="timeline-content"><strong>Rich Admin:</strong> DBS certificate verified with Update Service.</div>
+                </div>
+            `;
+            
+            document.getElementById('notesModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            currentApplicationId = null;
+        }
+
+        // Action confirmations
+        function confirmApproval() {
+            const notes = document.getElementById('approvalNotes').value;
+            const app = applications.find(a => a.id === currentApplicationId);
+            
+            // Update status
+            app.status = 'approved';
+            
+            // Show success message
+            showAlert('success', `✓ ${app.businessName || app.fullName} has been approved! Welcome email sent.`);
+            
+            // Re-render
+            renderApplications(applications);
+            
+            closeModal('approveModal');
+            
+            // In production: send approval email, create provider account, etc.
+            console.log('APPROVED:', currentApplicationId, 'Notes:', notes);
+        }
+
+        function confirmRejection() {
+            const reason = document.getElementById('rejectionReason').value;
+            const notes = document.getElementById('rejectionNotes').value;
+            
+            if (!reason) {
+                alert('Please select a reason for rejection.');
+                return;
+            }
+            
+            const app = applications.find(a => a.id === currentApplicationId);
+            app.status = 'rejected';
+            
+            showAlert('info', `${app.businessName || app.fullName}'s application has been rejected. Notification email sent.`);
+            
+            renderApplications(applications);
+            closeModal('rejectModal');
+            
+            console.log('REJECTED:', currentApplicationId, 'Reason:', reason, 'Notes:', notes);
+        }
+
+        function confirmRequestInfo() {
+            const request = document.getElementById('infoRequest').value;
+            
+            if (!request.trim()) {
+                alert('Please specify what information you need.');
+                return;
+            }
+            
+            const app = applications.find(a => a.id === currentApplicationId);
+            app.status = 'under-review';
+            
+            showAlert('info', `Information request sent to ${app.businessName || app.fullName}.`);
+            
+            renderApplications(applications);
+            closeModal('requestInfoModal');
+            
+            console.log('INFO REQUESTED:', currentApplicationId, 'Request:', request);
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('adminNotes').value;
+            
+            if (!notes.trim()) {
+                alert('Please enter some notes.');
+                return;
+            }
+            
+            showAlert('success', 'Notes saved successfully.');
+            
+            closeModal('notesModal');
+            
+            console.log('NOTES SAVED:', currentApplicationId, 'Notes:', notes);
+        }
+
+        // Other functions
+        function viewDocument(docName) {
+            alert(`Opening document: ${docName}\n\nIn production, this would open the document in a new tab or modal viewer.`);
+            // In production: window.open(documentUrl, '_blank');
+        }
+
+        function verifyReference(appId, refIndex) {
+            const app = applications.find(a => a.id === appId);
+            const ref = app.references[refIndex];
+            
+            if (confirm(`Contact ${ref.name} at ${ref.phone}?\n\nThis will log the reference check attempt.`)) {
+                showAlert('success', `Reference check initiated for ${ref.name}. Don't forget to add notes after the call.`);
+            }
+        }
+
+        function applyFilters() {
+            const status = document.getElementById('filterStatus').value;
+            const type = document.getElementById('filterType').value;
+            const borough = document.getElementById('filterBorough').value;
+            const search = document.getElementById('filterSearch').value.toLowerCase();
+            
+            let filtered = applications;
+            
+            if (status !== 'all') {
+                filtered = filtered.filter(app => app.status === status);
+            }
+            
+            if (type !== 'all') {
+                filtered = filtered.filter(app => app.providerType === type);
+            }
+            
+            if (borough !== 'all') {
+                filtered = filtered.filter(app => app.boroughs.includes(borough));
+            }
+            
+            if (search) {
+                filtered = filtered.filter(app => 
+                    app.id.toLowerCase().includes(search) ||
+                    (app.businessName && app.businessName.toLowerCase().includes(search)) ||
+                    app.fullName.toLowerCase().includes(search) ||
+                    app.email.toLowerCase().includes(search)
+                );
+            }
+            
+            renderApplications(filtered);
+        }
+
+        function showAlert(type, message) {
+            const alert = document.getElementById('alertMessage');
+            alert.className = `alert ${type} show`;
+            alert.textContent = message;
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initDashboard);
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
