@@ -16,8 +16,8 @@
 // ============================================================================
 
 // Replace these with YOUR actual values from supabase-credentials.txt
-const SUPABASE_URL = https://oqnxliojnmzgtzyytukz.supabase.co
-const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xbnhsaW9qbm16Z3R6eXl0dWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyNDMwODYsImV4cCI6MjA4NzgxOTA4Nn0.eO51G3lr657VYRyKttwTyBC87YaG1TLsrKJ_ZNxoxyM
+const SUPABASE_URL = 'https://oqnxliojnmzgtzyytukz.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xbnhsaW9qbm16Z3R6eXl0dWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyNDMwODYsImV4cCI6MjA4NzgxOTA4Nn0.eO51G3lr657VYRyKttwTyBC87YaG1TLsrKJ_ZNxoxyM';
 
 // Create connection to Supabase
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
