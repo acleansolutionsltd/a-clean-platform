@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+ <!-- Supabase -->
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --cream: #E8E2D5;
@@ -630,6 +632,57 @@
         }
     </style>
 </head>
+<!-- Load Supabase Config -->
+<script src="supabase-config.js"></script>
+
+<!-- Connect Form -->
+<script>
+document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="loading"></span> Submitting...';
+    
+    const formData = {
+        swName: document.getElementById('swName').value,
+        swEmail: document.getElementById('swEmail').value,
+        swPhone: document.getElementById('swPhone').value,
+        swOrganisation: document.getElementById('swOrganisation').value,
+        swDepartment: document.getElementById('swDepartment')?.value,
+        caseReference: document.getElementById('caseReference')?.value,
+        clientName: document.getElementById('clientName').value,
+        clientContact: document.getElementById('clientContact')?.value,
+        propertyAddress: document.getElementById('propertyAddress').value,
+        propertyType: document.getElementById('propertyType').value,
+        bedrooms: document.getElementById('bedrooms').value,
+        borough: document.getElementById('borough').value,
+        services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(el => el.value),
+        urgency: document.getElementById('urgency').value,
+        preferredDate: document.getElementById('preferredDate').value,
+        propertyCondition: document.getElementById('propertyCondition').value,
+        specialRequirements: document.getElementById('specialRequirements')?.value,
+        accessArrangements: document.getElementById('accessArrangements').value,
+        dbsRequired: document.getElementById('dbsRequired').checked,
+        safeguardingCase: document.getElementById('safeguardingConcerns').checked,
+        vulnerableAdult: document.getElementById('vulnerableAdult').checked,
+        budgetRange: document.getElementById('budgetRange').value,
+        fundingSource: document.getElementById('fundingSource').value
+    };
+    
+    const result = await window.ACleanAPI.submitQuoteRequest(formData);
+    
+    if (result.success) {
+        alert(`✅ Quote request submitted!\n\nReference Number: ${result.referenceNumber}\n\nYou'll receive quotes within 24-48 hours.`);
+        this.reset();
+    } else {
+        alert('❌ Error submitting request. Please try again.');
+    }
+    
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'SUBMIT QUOTE REQUEST';
+});
+</script>
 <body>
     <header>
         <div class="header-content">
