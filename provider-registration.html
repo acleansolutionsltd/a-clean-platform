@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1577,91 +1578,82 @@
             }, 2500);
         });
     </script>
-<!-- Load Supabase Config -->
-   <script src="supabase-config.js"></script>
-   
-   <!-- Connect Form -->
-   <script>
-   document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-       e.preventDefault();
-       
-       // Disable submit button
-       const submitBtn = document.getElementById('submitBtn');
-       submitBtn.disabled = true;
-       submitBtn.innerHTML = '<span class="loading"></span> Submitting...';
-       
-       // Collect form data
-       const formData = {
-           providerType: document.querySelector('input[name="providerType"]:checked').value,
-           businessName: document.getElementById('businessName').value,
-           fullName: document.getElementById('fullName').value,
-           email: document.getElementById('email').value,
-           phone: document.getElementById('phone').value,
-           whatsapp: document.getElementById('whatsapp').value,
-           businessAddress: document.getElementById('businessAddress').value,
-           teamSize: document.getElementById('teamSize').value,
-           dbsStaff: document.getElementById('dbsStaff').value,
-           services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(el => el.value),
-           boroughs: Array.from(document.querySelectorAll('input[name="boroughs"]:checked')).map(el => el.value),
-           availability: document.getElementById('availability').value,
-           responseTime: document.getElementById('responseTime').value,
-           daysAvailable: Array.from(document.querySelectorAll('input[name="daysAvailable"]:checked')).map(el => el.value),
-           emergencyJobs: document.getElementById('emergencyJobs').checked,
-           dbsNumber: document.getElementById('dbsNumber').value,
-           dbsIssueDate: document.getElementById('dbsIssueDate').value,
-           dbsUpdateService: document.getElementById('dbsUpdateService').checked,
-           publicLiability: document.getElementById('publicLiability').checked,
-           employersLiability: document.getElementById('employersLiability')?.checked || false,
-           yearsExperience: document.getElementById('yearsExperience').value,
-           companyNumber: document.getElementById('companyNumber')?.value,
-           vatNumber: document.getElementById('vatNumber')?.value,
-           aboutYou: document.getElementById('aboutYou')?.value,
-           website: document.getElementById('website')?.value,
-           maxSimultaneousJobs: document.getElementById('maxSimultaneousJobs')?.value,
-           references: [
-               {
-                   name: document.getElementById('ref1Name').value,
-                   relationship: document.getElementById('ref1Relationship').value,
-                   phone: document.getElementById('ref1Phone').value,
-                   email: document.getElementById('ref1Email').value
-               },
-               {
-                   name: document.getElementById('ref2Name').value,
-                   relationship: document.getElementById('ref2Relationship').value,
-                   phone: document.getElementById('ref2Phone').value,
-                   email: document.getElementById('ref2Email').value
-               }
-           ]
-       };
-       
-       // Submit to database
-       const result = await window.ACleanAPI.submitProviderRegistration(formData);
-       
-       if (result.success) {
-           // Show success message
-           const formMessage = document.getElementById('formMessage');
-           formMessage.className = 'form-message success';
-           formMessage.innerHTML = `
-               <strong>✓ Application Submitted Successfully!</strong><br><br>
-               <strong>Application ID:</strong> ${result.applicationId}<br><br>
-               Thank you for applying! We'll review your application and contact you within 5 business days.
-           `;
-           window.scrollTo({ top: 0, behavior: 'smooth' });
-           
-           // Reset form
-           this.reset();
-       } else {
-           // Show error
-           const formMessage = document.getElementById('formMessage');
-           formMessage.className = 'form-message error';
-           formMessage.textContent = 'Error submitting application. Please try again or contact support.';
-           window.scrollTo({ top: 0, behavior: 'smooth' });
-       }
-       
-       // Re-enable button
-       submitBtn.disabled = false;
-       submitBtn.textContent = 'SUBMIT REGISTRATION APPLICATION';
-   });
-   </script>
+<!-- Supabase Config -->
+<script src="supabase-config.js"></script>
+
+<!-- Provider Registration Handler -->
+<script>
+if (document.getElementById('registrationForm')) {
+    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btn = this.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+        
+        try {
+            const formData = {
+                providerType: document.querySelector('input[name="providerType"]:checked')?.value,
+                businessName: document.getElementById('businessName')?.value,
+                fullName: document.getElementById('fullName')?.value,
+                email: document.getElementById('email')?.value,
+                phone: document.getElementById('phone')?.value,
+                whatsapp: document.getElementById('whatsapp')?.value,
+                businessAddress: document.getElementById('businessAddress')?.value,
+                teamSize: document.getElementById('teamSize')?.value || 1,
+                dbsStaff: document.getElementById('dbsStaff')?.value || 0,
+                services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(el => el.value),
+                boroughs: Array.from(document.querySelectorAll('input[name="boroughs"]:checked')).map(el => el.value),
+                availability: document.getElementById('availability')?.value,
+                responseTime: document.getElementById('responseTime')?.value,
+                daysAvailable: Array.from(document.querySelectorAll('input[name="daysAvailable"]:checked')).map(el => el.value),
+                emergencyJobs: document.getElementById('emergencyJobs')?.checked || false,
+                dbsNumber: document.getElementById('dbsNumber')?.value,
+                dbsIssueDate: document.getElementById('dbsIssueDate')?.value,
+                dbsUpdateService: document.getElementById('dbsUpdateService')?.checked || false,
+                publicLiability: document.getElementById('publicLiability')?.checked || false,
+                employersLiability: document.getElementById('employersLiability')?.checked || false,
+                yearsExperience: document.getElementById('yearsExperience')?.value,
+                companyNumber: document.getElementById('companyNumber')?.value,
+                vatNumber: document.getElementById('vatNumber')?.value,
+                aboutYou: document.getElementById('aboutYou')?.value,
+                website: document.getElementById('website')?.value,
+                maxSimultaneousJobs: document.getElementById('maxSimultaneousJobs')?.value,
+                references: [
+                    {
+                        name: document.getElementById('ref1Name')?.value,
+                        relationship: document.getElementById('ref1Relationship')?.value,
+                        phone: document.getElementById('ref1Phone')?.value,
+                        email: document.getElementById('ref1Email')?.value
+                    },
+                    {
+                        name: document.getElementById('ref2Name')?.value,
+                        relationship: document.getElementById('ref2Relationship')?.value,
+                        phone: document.getElementById('ref2Phone')?.value,
+                        email: document.getElementById('ref2Email')?.value
+                    }
+                ]
+            };
+            
+            const result = await window.ACleanAPI.submitProviderRegistration(formData);
+            
+            if (result.success) {
+                alert('✅ Application Submitted Successfully!\n\nApplication ID: ' + result.applicationId + '\n\nThank you! We\'ll review your application and contact you within 5 business days.');
+                this.reset();
+            } else {
+                alert('❌ Error: ' + (result.error || 'Please try again'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('❌ Submission failed. Please try again.');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'SUBMIT REGISTRATION APPLICATION';
+        }
+    });
+}
+</script>
+</body>
+</html>
 </body>
 </html>
